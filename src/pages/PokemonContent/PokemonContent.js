@@ -5,7 +5,7 @@ import Footer from '../../components/Footer'
 import { PokemonContainer } from './style';
 
 
-const PokemonContent = ({ fetchPokemonList, isLoading }) => {
+const PokemonContent = () => {
 
   const [ filterText, setFilterText ] = useState('')
 
@@ -14,7 +14,8 @@ const PokemonContent = ({ fetchPokemonList, isLoading }) => {
   }
 
   return (
-    <PokemonContainer>
+    <>
+      <PokemonContainer>
         <Search 
           filterText={filterText}
           filterUpdate={filterUpdate.bind(this)}
@@ -23,7 +24,8 @@ const PokemonContent = ({ fetchPokemonList, isLoading }) => {
           filterText={filterText}
         />
         <Footer />
-    </PokemonContainer>
+      </PokemonContainer>
+    </>
   );
 }
 

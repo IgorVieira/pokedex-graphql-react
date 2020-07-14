@@ -14,7 +14,7 @@ export const PokemonListOfPainels = styled.div`
 export const PokemonPainel = styled.div`
   display: flex;
   padding: 5px;
-  width: 212px;
+  width: 280px;
   background: cornflowerblue;
   border: 8px solid fuchsia;
   margin-top: 30px;
@@ -25,8 +25,8 @@ export const PokemonPainel = styled.div`
 `
 
 export const PokemonImage = styled.img`
-  width: 195px;
-  height: 234px;
+  width: 260px;
+  height: 270px;
   border: 8px solid slateblue;
 `
 
@@ -51,6 +51,7 @@ export const PokemonName = styled.div`
 `
 
 export const PokemonButton = styled.button`
+  font-family: 'Press Start 2P', sans-serife;
   padding: 7px;
   font-size: 16px;
   text-transform: uppercase;
@@ -59,4 +60,26 @@ export const PokemonButton = styled.button`
   cursor: pointer;
   outline: none;
 }
+`
+
+export const PokemonScrollTop = styled.span`
+  width: 60px;
+  height: 60px;
+  background: cyan;
+  position: fixed;
+  right: 0;
+  bottom: 100px;
+  margin-right: 18px;
+  cursor: pointer;
+  text-align: center;
+  border: 4px solid;
+  transition:display 0.3s linear,opacity 0.3s linear;
+
+  svg {
+    margin-top: 12px;
+    width: 42px;
+    height: 42px;
+  }
+
+  
 `

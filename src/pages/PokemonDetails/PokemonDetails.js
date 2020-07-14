@@ -1,5 +1,6 @@
 import React,  { useEffect, useState, Fragment } from 'react';
 import { map, isEmpty } from 'lodash';
+import  PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import { LoadingText } from '../../constants/style';
@@ -96,5 +97,13 @@ const PokemonDetails = ({
     </Fragment>
   );
 };
+
+PokemonDetails.propTypes = {
+  getPokemonById: PropTypes.func.isRequired,
+  pokemonDetails: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  updatePokemonData: PropTypes.func,
+}
 
 export default PokemonDetails

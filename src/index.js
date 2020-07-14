@@ -15,10 +15,10 @@ const store = createStore(rootReducers, applyMiddleware(thunk))
 ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <div>
+        <>
           <Route exact path='/' component={PokemonContent} />
           <Route path='/show/:id' component={PokemonDetails} />
-        </div>
+        </>
       </Router>
     </Provider>, 
     document.getElementById('root')

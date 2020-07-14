@@ -1,17 +1,31 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import { filter } from 'lodash';
+import { useScrollToTop } from '../../utils'
 import { LoadingText } from '../../constants/style';
+import { ArrowFromBottom } from '@styled-icons/boxicons-regular/ArrowFromBottom'
 import {
   PokemonContent,
   PokemonButton,
   PokemonImage,
   PokemonPainel,
   PokemonName,
-  PokemonType
+  PokemonType,
+  PokemonScrollTop
 } from './style';
 
-const List = ({ fetchPokemonList, listOfPokemons, filterText, updateCounter, counter, isLoading }) => {
+const List = ({
+  fetchPokemonList,
+  listOfPokemons,
+  filterText,
+  updateCounter,
+  counter,
+  isLoading
+}) => {
+
+
+  const [ visible, setVisible ] =  useState(false)
 
   useEffect(() => {
     fetchPokemonList(counter)
@@ -23,7 +37,15 @@ const List = ({ fetchPokemonList, listOfPokemons, filterText, updateCounter, cou
         fetchPokemonList(counter)
         updateCounter(counter+10)
       }
+
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        setVisible(true)
+      } else {
+        setVisible(false)
+      }
     }
+
+    
 
     window.addEventListener("scroll", handleScrollEvent, true);
      
@@ -33,6 +55,8 @@ const List = ({ fetchPokemonList, listOfPokemons, filterText, updateCounter, cou
 
   }, [counter, fetchPokemonList, listOfPokemons.length, updateCounter])
 
+  const setScrollToTop = useScrollToTop(true);
+  
 
   const cardList = filter(listOfPokemons, (pokemon) => {
                     return pokemon.name.toLowerCase().indexOf(filterText.toLowerCase()) >= 0
@@ -46,13 +70,33 @@ const List = ({ fetchPokemonList, listOfPokemons, filterText, updateCounter, cou
                     </PokemonPainel>
                   ))
     return (
-     <Fragment>
-        <PokemonContent>
-          {cardList}
-        </PokemonContent>
-        {isLoading && <LoadingText>Loading...</LoadingText>}
-     </Fragment>
+     <>
+      <PokemonContent>
+        <>{cardList}</>
+        
+        {
+          visible &&
+          <PokemonScrollTop 
+            onClick={() => setScrollToTop(true)}
+          >
+            <ArrowFromBottom />
+          </PokemonScrollTop>
+        }
+      
+      </PokemonContent>
+      {isLoading && <LoadingText>Loading...</LoadingText>}
+     </>
     )
+}
+
+
+List.propTypes = {
+  fetchPokemonList: PropTypes.func.isRequired,
+  listOfPokemons: PropTypes.array.isRequired,
+  filterText: PropTypes.string.isRequired,
+  updateCounter: PropTypes.func.isRequired,
+  counter: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default List
